@@ -1,0 +1,8 @@
+numpy
+scikit-learn
+mne
+tqdm
+# KAN пакет бывает разный:
+kan; python_version >= "3.8"
+# или, если у тебя pykan:
+# pykan
