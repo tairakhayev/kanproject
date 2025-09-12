@@ -1,31 +1,14 @@
-# Python
-__pycache__/
-*.pyc
-
-# Notebooks
-.ipynb_checkpoints/
-
-# Artifacts
-outputs/
-processed/
-*.pt
-*.npy
-*.npz
-*.csv
-*.png
-
-# Raw data
-*.edf
-*.EDF
+.DS_Store
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
 outputs/
-processed/
+model/
 dataverse_files/
 *.edf
 *.EDF
 *.rdp
+*.zip
 *.pt
 *.npy
 *.npz
