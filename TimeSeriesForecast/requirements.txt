@@ -1,0 +1,14 @@
+# ==== Write minimal requirements.txt ====
+req = """numpy==1.26.4
+scipy==1.11.4
+pandas==2.2.2
+matplotlib==3.8.4
+scikit-learn==1.4.2
+mne==1.6.1
+torch==2.2.2
+tqdm==4.66.4
+pyyaml==6.0.1
+xgboost==2.0.3
+"""
+open("requirements.txt","w").write(req)
+print("requirements.txt written.")

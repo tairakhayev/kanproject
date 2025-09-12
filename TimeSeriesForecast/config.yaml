@@ -1,0 +1,35 @@
+random_seed: 42
+
+data:
+  raw_dir: "/Users/tairakhayev/Desktop/ThesisProject/dataverse_files"  # или путь в Windows
+  out_dir: "./processed"
+  fs_target: 250
+  channels: ["Fp1","Fp2","Fz","C3","C4","Pz","O1","O2","Cz"]
+  bandpass: [1.0, 45.0]
+  notch: [50.0, 100.0]
+
+task:
+  L: 500
+  H: 125
+  stride: 250
+  target_mode: "uni"        # "uni" | "multi"
+  target_channel: "Pz"
+
+split:
+  mode: "by_file"           # "by_file" | "LOSO"
+  ratios: [0.6, 0.2, 0.2]
+
+train:
+  batch_size: 64
+  epochs: 100
+  early_stopping_patience: 15
+  lr: 1e-3
+  loss: "mse"
+
+model:
+  name: "kan"
+  params: {}
+
+logging:
+  out_dir: "outputs"
+  save_best_by: "rmse_val"
