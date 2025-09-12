@@ -1,14 +1,33 @@
-# env / cache
-venv/
+# Python
 __pycache__/
+*.pyc
+
+# Notebooks
 .ipynb_checkpoints/
 
-# данные и артефакты
-dataverse_files/
+# Artifacts
+outputs/
 processed/
-checkpoints/
-*.edf
+*.pt
 *.npy
+*.npz
+*.csv
+*.png
 
-# IDE
-.vscode/
+# Raw data
+*.edf
+*.EDF
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+outputs/
+processed/
+dataverse_files/
+*.edf
+*.EDF
+*.rdp
+*.pt
+*.npy
+*.npz
+*.csv
+*.png
