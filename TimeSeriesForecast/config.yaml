@@ -1,7 +1,10 @@
 random_seed: 42
 
+#/Users/utente/Desktop/kanproject-main/dataverse_files
+#/Users/tairakhayev/Desktop/ThesisProject/dataverse_files
+
 data:
-  raw_dir: "/Users/utente/Desktop/kanproject-main/dataverse_files"  # или путь в Windows
+  raw_dir: "/Users/tairakhayev/Desktop/ThesisProject/dataverse_files"  # или путь в Windows 
   out_dir: "./processed"
   fs_target: 250
   channels: ["Fp1","Fp2","Fz","C3","C4","Pz","O1","O2","Cz"]
@@ -20,17 +23,17 @@ split:
   ratios: [0.6, 0.2, 0.2]
 
 train:
-  batch_size: 96           # начни с 64; если память позволяет — можно 96/128
-  epochs: 40                # ограничим верхний предел
-  early_stopping_patience: 5
+  batch_size: 64           # начни с 64; если память позволяет — можно 96/128
+  epochs: 10                # ограничим верхний предел
+  early_stopping_patience: 3
   lr: 1e-3
   loss: "mse"
 
 model:
   name: "kan"
   params:
-    pool: 10                # быстрее, чем 5 (в 2× меньше вход в KAN)
-    hidden: [96, 48]        # чуть шире для качества
+    pool: 20                # быстрее, чем 5 (в 2× меньше вход в KAN)
+    hidden: [64, 32]        # чуть шире для качества
     grid: 2
     k: 3
 
