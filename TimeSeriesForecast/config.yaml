@@ -1,7 +1,7 @@
 random_seed: 42
 
 data:
-  raw_dir: "/Users/tairakhayev/Desktop/ThesisProject/dataverse_files"  # или путь в Windows
+  raw_dir: "/Users/utente/Desktop/kanproject-main/dataverse_files"  # или путь в Windows
   out_dir: "./processed"
   fs_target: 250
   channels: ["Fp1","Fp2","Fz","C3","C4","Pz","O1","O2","Cz"]
@@ -31,9 +31,9 @@ model:
   params:
     pool: 10                # быстрее, чем 5 (в 2× меньше вход в KAN)
     hidden: [96, 48]        # чуть шире для качества
-    grid: 3
+    grid: 2
     k: 3
-    
+
 logging:
   out_dir: "outputs"
   save_best_by: "rmse_val"
