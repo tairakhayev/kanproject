@@ -20,16 +20,20 @@ split:
   ratios: [0.6, 0.2, 0.2]
 
 train:
-  batch_size: 64
-  epochs: 100
-  early_stopping_patience: 15
+  batch_size: 96           # начни с 64; если память позволяет — можно 96/128
+  epochs: 40                # ограничим верхний предел
+  early_stopping_patience: 5
   lr: 1e-3
   loss: "mse"
 
 model:
   name: "kan"
-  params: {}
-
+  params:
+    pool: 10                # быстрее, чем 5 (в 2× меньше вход в KAN)
+    hidden: [96, 48]        # чуть шире для качества
+    grid: 3
+    k: 3
+    
 logging:
   out_dir: "outputs"
   save_best_by: "rmse_val"
