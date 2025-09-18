@@ -60,11 +60,10 @@ class KANRegressor(nn.Module):
 
         self.flatten = nn.Flatten()
 
-    def forward(self, x: torch.Tensor) -> torch.Tensor:
-        # x: [B, C, L]
-        z = self.down(x)            # [B, C, Lp]
-        f = self.flatten(z)         # [B, D_in]
-        y = self.kan(f) + self.lin(f)
-        if self.target_mode == "multi":
-            y = y.view(y.size(0), self.C, self.H)
-        return y
+    def forward_features(self, x):   # (B,C,L) -> (B,D)
+        # верни тензор перед финальной регрессией
+        return self.feat(x)          # имя блока подставь по своему коду
+
+    def forward(self, x):
+        z = self.forward_features(x)
+        return self.head(z)

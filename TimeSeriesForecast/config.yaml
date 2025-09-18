@@ -1,11 +1,8 @@
 random_seed: 42
 
-#/Users/utente/Desktop/kanproject-main/dataverse_files
-#/Users/tairakhayev/Desktop/ThesisProject/dataverse_files
-
 data:
-  raw_dir: "/Users/tairakhayev/Desktop/ThesisProject/dataverse_files"  # или путь в Windows 
-  out_dir: "./processed"
+  raw_dir: "/Users/tairakhayev/Desktop/ThesisProject/dataverse_files"
+  out_dir: "./processed"               # артефакты данных (X_raw/Y_raw/…)
   fs_target: 250
   channels: ["Fp1","Fp2","Fz","C3","C4","Pz","O1","O2","Cz"]
   bandpass: [1.0, 45.0]
@@ -15,28 +12,34 @@ task:
   L: 500
   H: 125
   stride: 250
-  target_mode: "uni"        # "uni" | "multi"
-  target_channel: "Pz"
+  target_mode: "multi"                 # <— для v3.1 предсказываем сразу несколько каналов
+  target_channels_keep: ["Pz","Fp1","Fp2","O1","Cz"]   # <— какие каналы предсказываем
 
 split:
-  mode: "by_file"           # "by_file" | "LOSO"
+  mode: "by_file"
   ratios: [0.6, 0.2, 0.2]
 
 train:
-  batch_size: 256           # начни с 64; если память позволяет — можно 96/128
-  epochs: 20                # ограничим верхний предел
-  early_stopping_patience: 3
+  batch_size: 128                      # multi-channel → чуть меньше, чем в v1/v2
+  epochs: 40
+  early_stopping_patience: 10
   lr: 1e-3
-  loss: "mse"
+  # ниже — веса мультизадачного лосса и спайк-порог
+  lambda_cls: 0.8                      # вес классификации пиков (первые 3 эпохи), потом 0.5
+  lambda_q: 0.3                        # вес квантилия на пиках, потом 0.4
+  spike_std_k: 1.8                   # |y|>k*std или |Δy|>k*std → пик
+  focal_alpha: 0.95
+  focal_gamma: 2.0
 
 model:
-  name: "kan"
+  name: "kan_v3_1"
   params:
-    pool: 20                # быстрее, чем 5 (в 2× меньше вход в KAN)
-    hidden: [64, 32]        # чуть шире для качества
+    pool: 20
+    hidden: [64, 32]
     grid: 2
     k: 3
+  ttr_clip: 3.8                        # клип в T-пространстве (до inverse)
 
 logging:
-  out_dir: "outputs"
-  save_best_by: "rmse_val"
+  out_dir: "outputs_v3"                # <— отдельная папка логов/чекпоинтов
+  save_best_by: "rmse+f1"         # валидируем в микровольтах (как в v2)
